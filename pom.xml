@@ -97,6 +97,11 @@
             <artifactId>spring-messaging</artifactId>
             <version>6.1.14</version>
         </dependency>
+        <dependency>
+          <groupId>ace.charitan</groupId>
+          <artifactId>common</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
     <dependencyManagement>

@@ -1,16 +1,17 @@
 package ace.charitan.notification.external.consumer;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import ace.charitan.common.dto.TestKafkaMessageDto;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 class KafkaMessageConsumer {
 
-    @KafkaListener(topics = "donation-test", groupId = "donation")
-    public void listen(String message) {
-        System.out.println("Donation microservice received message: " + message);
+    @KafkaListener(topics = "donation-notification", groupId = "donation")
+    public void listen(TestKafkaMessageDto dto) {
+        System.out.println("Donation microservice received message");
+        System.out.println(dto);
     }
 
 }
