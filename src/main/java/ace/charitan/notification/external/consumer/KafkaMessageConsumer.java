@@ -13,9 +13,6 @@ import static org.springframework.kafka.support.KafkaHeaders.REPLY_TOPIC;
 @Service
 class KafkaMessageConsumer {
 
-    @Autowired
-    private KafkaTemplate<String, Object> kafkaTemplate;
-
     @KafkaListener(topics = "donation-notification", groupId = "notification")
     public void listen(TestKafkaMessageDto dto) {
         System.out.println("Donation microservice received message");
@@ -29,5 +26,4 @@ class KafkaMessageConsumer {
 
         return new TestKafkaMessageDto("John Response", "Notification response for John Request");
     }
-
 }

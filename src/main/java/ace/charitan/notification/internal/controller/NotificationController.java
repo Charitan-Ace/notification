@@ -23,16 +23,9 @@ public class NotificationController {
     @Autowired
     private InternalNotificationService service;
 
-    @MessageMapping("/hello")
-    @SendTo("/topic/greetings")
-    public Notification sendMessage(@Payload Notification notification) {
-        return notification;
-    }
-
     @PostMapping
     public ResponseEntity<String> testStreamMessage() {
         service.testStreamResponse();
         return ResponseEntity.ok("done");
-
     }
 }

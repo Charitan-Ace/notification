@@ -11,10 +11,6 @@ public class NotificationServiceImpl implements InternalNotificationService {
 
     @Override
     public void testStreamResponse() {
-        String response = "something is being streamed back";
-        for (char character: response.toCharArray()) {
-            messagingTemplate.convertAndSend("/topic/stream", String.valueOf(character));
-
-        }
+        messagingTemplate.convertAndSend("/topic/stream", "Websocket is working :)");
     }
 }
