@@ -2,6 +2,8 @@ package ace.charitan.notification.external.consumer;
 
 
 import ace.charitan.common.dto.TestKafkaMessageDto;
+import ace.charitan.common.dto.donation.SendDonationNotificationDto;
+import ace.charitan.notification.external.service.ExternalNotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -12,11 +14,12 @@ import static org.springframework.kafka.support.KafkaHeaders.REPLY_TOPIC;
 
 @Service
 class KafkaMessageConsumer {
+    @Autowired
+    private ExternalNotificationService service;
 
     @KafkaListener(topics = "donation-notification", groupId = "notification")
-    public void listen(TestKafkaMessageDto dto) {
-        System.out.println("Donation microservice received message");
-        System.out.println(dto);
+    public void listen(SendDonationNotificationDto dto) {
+        service.testNotification();
     }
 
     @KafkaListener(topics = "john-request", groupId = "notification")

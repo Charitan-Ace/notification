@@ -3,6 +3,7 @@ package ace.charitan.notification.internal.controller;
 import ace.charitan.notification.internal.dto.TestStreamMessageRequestDto;
 import ace.charitan.notification.internal.service.InternalNotificationService;
 import ace.charitan.notification.internal.service.Notification;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -17,7 +18,6 @@ import java.util.Map;
 import java.util.Set;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
 public class NotificationController {
 
     @Autowired
@@ -25,7 +25,8 @@ public class NotificationController {
 
     @PostMapping
     public ResponseEntity<String> testStreamMessage() {
-        service.testStreamResponse();
+
+        service.testNotification();
         return ResponseEntity.ok("done");
     }
 }

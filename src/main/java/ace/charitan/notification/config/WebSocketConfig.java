@@ -1,6 +1,7 @@
 package ace.charitan.notification.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.converter.DefaultContentTypeResolver;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
@@ -17,10 +18,18 @@ import java.util.List;
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
+    @Autowired
+    private WebSocketHandshakeInterceptor handshakeInterceptor;
+
+    @Autowired
+    private WebSocketHandshakeHandler handshakeHandler;
+
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws")
-                .setAllowedOrigins("http://localhost:3000")
+                .setAllowedOrigins("http://localhost:5173")
+                .addInterceptors(handshakeInterceptor)
+                .setHandshakeHandler(handshakeHandler)
                 .withSockJS();
     }
 
