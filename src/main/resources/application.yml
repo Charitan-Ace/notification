@@ -39,3 +39,6 @@ logging:
   level:
     org.springframework.web.socket: DEBUG
     org.springframework.messaging.simp: DEBUG
+auth:
+  cookie:
+    name: "charitan"

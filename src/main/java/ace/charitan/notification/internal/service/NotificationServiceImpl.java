@@ -1,9 +1,11 @@
 package ace.charitan.notification.internal.service;
 
 import ace.charitan.notification.external.service.ExternalNotificationService;
+import ace.charitan.notification.internal.auth.Utils;
 import ace.charitan.notification.internal.dto.SaveNotificationRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,8 +20,10 @@ public class NotificationServiceImpl implements InternalNotificationService, Ext
     @Override
     public void testNotification() {
         Notification notification = new Notification(null, null, "Are you seeing this?", NotificationType.DONATION, 1L, 1L);
-        messagingTemplate.convertAndSendToUser("abc", "/topic/stream", notification);
-        System.out.println("Done :)");
+        UserDetails userDetails = Utils.getUserDetails();
+        String userId = userDetails != null ? userDetails.getUsername() : "abc";
+        messagingTemplate.convertAndSendToUser(userId, "/topic/stream", notification);
+        System.out.println("Done :). Sent to " + userId);
         repository.save(notification);
     }
 
