@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.ExecutionException;
+
 @RestController
 public class NotificationController {
 
@@ -26,5 +28,11 @@ public class NotificationController {
         } else {
             return ResponseEntity.ok("cringe");
         }
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<Void> test() throws ExecutionException, InterruptedException {
+        service.test();
+        return ResponseEntity.noContent().build();
     }
 }

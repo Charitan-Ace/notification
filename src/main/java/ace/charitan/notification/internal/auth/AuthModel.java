@@ -2,6 +2,7 @@ package ace.charitan.notification.internal.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,9 +12,12 @@ import java.util.Collections;
 import java.util.UUID;
 
 @AllArgsConstructor
-class AuthModel implements UserDetails {
+public class AuthModel implements UserDetails {
 
     private String id;
+
+    @Getter
+    private String email;
 
     private String roleId;
 

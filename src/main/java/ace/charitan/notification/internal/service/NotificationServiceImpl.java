@@ -8,6 +8,8 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.ExecutionException;
+
 @Service
 public class NotificationServiceImpl implements InternalNotificationService, ExternalNotificationService {
 
@@ -16,6 +18,9 @@ public class NotificationServiceImpl implements InternalNotificationService, Ext
 
     @Autowired
     private NotificationRepository repository;
+
+    @Autowired
+    private KafkaMessageProducer producer;
 
     @Override
     public void testNotification() {
@@ -31,5 +36,10 @@ public class NotificationServiceImpl implements InternalNotificationService, Ext
         Notification notification = new Notification(null, null, dto.getMessage(), dto.getNotificationType(), dto.getProjectId(), dto.getDonationId());
         messagingTemplate.convertAndSend(notification);
         return repository.save(notification);
+    }
+
+    @Override
+    public void test() throws ExecutionException, InterruptedException {
+        producer.test();
     }
 }

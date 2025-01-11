@@ -6,13 +6,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class AuthUtils {
-    public static UserDetails getUserDetails() {
+    public static AuthModel getUserDetails() {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || !authentication.isAuthenticated()) {
                 return null;
             }
-            return (UserDetails) authentication.getPrincipal();
+            return (AuthModel) authentication.getPrincipal();
         } catch (ClassCastException | AuthenticationCredentialsNotFoundException e) {
             return null;
         }
