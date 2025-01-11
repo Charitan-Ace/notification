@@ -42,3 +42,5 @@ logging:
 auth:
   cookie:
     name: "charitan"
+server:
+  port: 0
