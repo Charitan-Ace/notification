@@ -1,8 +1,6 @@
 package ace.charitan.notification.internal.service;
 
-import ace.charitan.common.dto.donation.GetCharityDonationStatisticsRequestDto;
-import ace.charitan.common.dto.donation.GetCharityDonationStatisticsWrapperDto;
-import ace.charitan.common.dto.donation.GetDonorDonationStatisticsRequestDto;
+import ace.charitan.common.dto.donation.*;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -32,8 +30,7 @@ class KafkaMessageProducer {
 
     public void test() throws ExecutionException, InterruptedException {
 
-        GetDonorDonationStatisticsRequestDto dto = new GetDonorDonationStatisticsRequestDto("d2bd087c-3a6a-4179-91c2-b8595ebc92d3");
-        ProducerRecord<String, Object> record = new ProducerRecord<>("donor-donation-statistics", dto);
+        ProducerRecord<String, Object> record = new ProducerRecord<>("donors-of-the-month", null);
         record.headers().add(REPLY_TOPIC, REPLY_TOPIC.getBytes());
         RequestReplyFuture<String, Object, Object> future = replyingKafkaTemplate.sendAndReceive(record);
 
@@ -41,9 +38,9 @@ class KafkaMessageProducer {
 
         System.out.println("Donor: " + response);
 
-        GetCharityDonationStatisticsWrapperDto wrapper = new GetCharityDonationStatisticsWrapperDto(List.of("123", "abc"));
-        GetCharityDonationStatisticsRequestDto dto2 = new GetCharityDonationStatisticsRequestDto(wrapper);
-        ProducerRecord<String, Object> record2 = new ProducerRecord<>("charity-donation-statistics", dto2);
+        GetCharityDonorsOfTheMonthWrapperDto wrapper = new GetCharityDonorsOfTheMonthWrapperDto(List.of("123", "abc"));
+        GetCharityDonorsOfTheMonthRequestDto dto2 = new GetCharityDonorsOfTheMonthRequestDto(wrapper);
+        ProducerRecord<String, Object> record2 = new ProducerRecord<>("charity-donors-of-the-month", dto2);
         record2.headers().add(REPLY_TOPIC, REPLY_TOPIC.getBytes());
         RequestReplyFuture<String, Object, Object> future2 = replyingKafkaTemplate.sendAndReceive(record2);
 
