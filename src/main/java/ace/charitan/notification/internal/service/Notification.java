@@ -23,16 +23,12 @@ public class Notification implements InternalNotificationDto {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
+    @Column(nullable = false)
     private String userId;
 
     @Column(nullable = false)
     private String message;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private NotificationType notificationType;
+    private String projectId;
 
-    private Long projectId;
-
-    private Long donationId;
 }
