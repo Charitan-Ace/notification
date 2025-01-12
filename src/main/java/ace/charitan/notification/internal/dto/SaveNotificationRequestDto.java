@@ -19,7 +19,6 @@ public class SaveNotificationRequestDto {
     @NonNull
     private NotificationType notificationType;
 
-    private Long projectId;
+    private String projectId;
 
-    private Long donationId;
 }

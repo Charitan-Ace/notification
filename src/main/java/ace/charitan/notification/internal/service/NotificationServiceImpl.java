@@ -12,6 +12,8 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.ExecutionException;
+
 @Service
 public class NotificationServiceImpl implements InternalNotificationService, ExternalNotificationService {
 
@@ -35,6 +37,11 @@ public class NotificationServiceImpl implements InternalNotificationService, Ext
         Notification notification = new Notification(null, null, dto.getMessage(), dto.getUserId(), dto.getProjectId());
         messagingTemplate.convertAndSendToUser(dto.getUserId(), "/topic/notification", notification);
         return repository.save(notification);
+    }
+
+    @Override
+    public void test() throws ExecutionException, InterruptedException {
+
     }
 
     @Override

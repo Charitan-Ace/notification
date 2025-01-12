@@ -33,15 +33,12 @@ public class NotificationController {
         }
     }
 
-<<<<<<< HEAD
     @GetMapping("/test")
     public ResponseEntity<Void> test() throws ExecutionException, InterruptedException {
         service.test();
         return ResponseEntity.noContent().build();
     }
 
-=======
->>>>>>> 606c0bc (Added get my notifications)
     @GetMapping("/my-notifications")
     public ResponseEntity<PagedModel<InternalNotificationDto>> getMyNotifications(Pageable pageable) {
         return ResponseEntity.ok(service.getMyNotifications(pageable));
