@@ -23,6 +23,8 @@ public class Notification implements InternalNotificationDto {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
+    private String userId;
+
     @Column(nullable = false)
     private String message;
 
