@@ -26,7 +26,7 @@ class KafkaMessageConsumer {
         }
     }
 
-    @KafkaListener(topics = "notification.subscription.cancel")
+    @KafkaListener(topics = "notification.project.halt.donor")
     public void handleCancelDonationSubscriptionNotification(HaltedProjectDonorNotificationRequestDto dto) {
         for (String donorId : dto.getDonorIds()) {
             service.sendCancelledProjectNotification(donorId, dto.getProject());
