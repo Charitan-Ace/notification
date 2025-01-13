@@ -31,7 +31,6 @@ class KafkaMessageProducer {
     public void test() throws ExecutionException, InterruptedException {
 
         ProducerRecord<String, Object> record = new ProducerRecord<>("donors-of-the-month", null);
-        record.headers().add(REPLY_TOPIC, REPLY_TOPIC.getBytes());
         RequestReplyFuture<String, Object, Object> future = replyingKafkaTemplate.sendAndReceive(record);
 
         Object response = future.get().value();
@@ -41,7 +40,6 @@ class KafkaMessageProducer {
         GetCharityDonorsOfTheMonthWrapperDto wrapper = new GetCharityDonorsOfTheMonthWrapperDto(List.of("123", "abc"));
         GetCharityDonorsOfTheMonthRequestDto dto2 = new GetCharityDonorsOfTheMonthRequestDto(wrapper);
         ProducerRecord<String, Object> record2 = new ProducerRecord<>("charity-donors-of-the-month", dto2);
-        record2.headers().add(REPLY_TOPIC, REPLY_TOPIC.getBytes());
         RequestReplyFuture<String, Object, Object> future2 = replyingKafkaTemplate.sendAndReceive(record2);
 
         Object response2 = future2.get().value();
