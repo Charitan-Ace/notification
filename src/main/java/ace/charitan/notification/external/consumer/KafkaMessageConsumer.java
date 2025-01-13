@@ -2,6 +2,7 @@ package ace.charitan.notification.external.consumer;
 
 
 import ace.charitan.common.dto.donation.SendDonationNotificationDto;
+import ace.charitan.common.dto.notification.payment.HaltedProjectDonorNotificationRequestDto;
 import ace.charitan.common.dto.notification.subscription.NotificationNewProjectSubscription.NotificationNewProjectSubscriptionRequestDto;
 import ace.charitan.notification.external.service.ExternalNotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,16 @@ class KafkaMessageConsumer {
     @KafkaListener(topics = "subscription-notification-new-project")
     public void handleSubscriptionNotificationNewProject(NotificationNewProjectSubscriptionRequestDto dto) {
         for (String donorId : dto.getDonorIdList()) {
-            service.sendProjectNotification(donorId, dto.getProject());
+            service.sendNewProjectNotification(donorId, dto.getProject());
         }
+    }
+
+    @KafkaListener(topics = "notification.subscription.cancel")
+    public void handleCancelDonationSubscriptionNotification(HaltedProjectDonorNotificationRequestDto dto) {
+        for (String donorId : dto.getDonorIds()) {
+            service.sendCancelledProjectNotification(donorId, dto.getProject());
+        }
+
     }
 }
 

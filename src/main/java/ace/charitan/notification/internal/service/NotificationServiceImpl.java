@@ -53,9 +53,17 @@ public class NotificationServiceImpl implements InternalNotificationService, Ext
     }
 
     @Override
-    public void sendProjectNotification(String userId, ExternalProjectDto dto) {
+    public void sendNewProjectNotification(String userId, ExternalProjectDto dto) {
         Notification notification = new Notification(null, null, userId, "A new project of interest has been created: " + dto.getTitle(), dto.getId());
         messagingTemplate.convertAndSendToUser(userId, "/topic/notification", notification);
         repository.save(notification);
+    }
+
+    @Override
+    public void sendCancelledProjectNotification(String userId, ExternalProjectDto dto) {
+        Notification notification = new Notification(null, null, userId, "A project that you registered for monthly donation has been cancelled: " + dto.getTitle(), dto.getId());
+        messagingTemplate.convertAndSendToUser(userId, "/topic/notification", notification);
+        repository.save(notification);
+
     }
 }

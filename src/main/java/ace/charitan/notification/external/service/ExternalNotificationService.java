@@ -4,5 +4,6 @@ import ace.charitan.common.dto.project.ExternalProjectDto;
 
 public interface ExternalNotificationService {
     void testNotification();
-    void sendProjectNotification(String userId, ExternalProjectDto dto);
+    void sendNewProjectNotification(String userId, ExternalProjectDto dto);
+    void sendCancelledProjectNotification(String userId, ExternalProjectDto dto);
 }
